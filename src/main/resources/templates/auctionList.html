@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Auction List</title>
+</head>
+<body>
+    <h1>Active Auctions</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="auction : ${auctions}">
+                <td th:text="${auction.title}"></td>
+                <td th:text="${auction.description}"></td>
+                <td th:text="${auction.startTime}"></td>
+                <td th:text="${auction.endTime}"></td>
+                <td>
+                    <form action="/placeBid" method="post">
+                        <input type="hidden" name="auction.id" th:value="${auction.id}">
+                        <input type="number" name="amount" step="0.01" min="0" required>
+                        <button type="submit">Place Bid</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/createAuction">Create New Auction</a>
+    <a href="/home">Back to Home</a>
+</body>
+</html>
